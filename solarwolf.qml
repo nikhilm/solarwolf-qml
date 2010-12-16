@@ -6,7 +6,7 @@ Rectangle {
     id: screen
     property int baseDim: 32
 
-    width: baseDim*11; height: baseDim*9
+    width: baseDim*15; height: baseDim*12
 
     SystemPalette { id: activePalette }
 
