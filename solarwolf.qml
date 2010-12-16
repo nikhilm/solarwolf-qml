@@ -63,4 +63,10 @@ Rectangle {
         width: baseDim - 6
         height: baseDim - 6
     }
+
+    Timer {
+        id: pause_timer
+        interval: 2000
+        onTriggered: Solarwolf.unpause();
+    }
 }
