@@ -6,7 +6,7 @@ Rectangle {
     id: screen
     property int baseDim: 32
 
-    width: baseDim*15; height: baseDim*12
+    width: baseDim*15; height: baseDim*13
 
     SystemPalette { id: activePalette }
 
@@ -68,5 +68,33 @@ Rectangle {
         id: pause_timer
         interval: 2000
         onTriggered: Solarwolf.unpause();
+    }
+
+    Text {
+        id: notification
+        state: "hidden"
+        anchors.right: parent.right
+        font.pointSize: 24
+        color: Qt.rgba(57, 146, 155, 1.0)
+        Timer {
+            id: notification_timer
+            interval: 2000
+            onTriggered: Solarwolf.hideNotification()
+        }
+
+        states: [
+            State {
+                name: "hidden"
+                PropertyChanges { target: notification; visible: false; opacity: 0 }
+            },
+            State {
+                name: "visible"
+                PropertyChanges { target: notification; visible: true; opacity: 1 }
+            }
+        ]
+
+        transitions: Transition {
+            NumberAnimation { properties: "opacity"; duration: 500 }
+        }
     }
 }

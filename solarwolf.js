@@ -18,8 +18,8 @@ var enemies = {};
 
 function init(levelmap) {
     levels = levelmap;
-    nextLevel = createLevel(6);
-    nextLevel.lives = 3;
+    //nextLevel = createLevel(6);
+    setNextState("MainMenu");
 }
 
 function index(row, column) {
@@ -27,12 +27,15 @@ function index(row, column) {
 }
 
 function createLevel(num) {
+    console.log("Level " + num);
+    console.log("Levels " + levels.length);
     var ret = new Level();
     ret.title = levels[num].title;
     ret.subtitle = levels[num].subtitle;
-    ret.boxes = new Array(maxRow*maxColumn);
+    ret.boxes = [];
     ret.bullets = [];
     ret.number = num;
+    ret.destroy = function() {}
 
     var grid = levels[num].grid;
     for(var i = 0; i < 7; i++) {
@@ -97,7 +100,7 @@ function createBullet(x, y, dx, dy) {
         }
         dynamic.x = x;
         dynamic.y = y;
-        dynamic.width = dynamic.height = 24;
+        dynamic.width = dynamic.height = 14;
         dynamic.dx = dx;
         dynamic.dy = dy;
 
@@ -206,7 +209,7 @@ function moveBullet(bullet) {
 
 function fire() {
     [enemy_top, enemy_right, enemy_bottom, enemy_left].forEach(function(elt) {
-        var shouldWeFire = Math.random() < 0.05;
+        var shouldWeFire = Math.random() < 0.02;
         if(shouldWeFire) {
             var dx = 0, dy = 0;
             switch(elt) {
@@ -227,19 +230,14 @@ function intersectsShip(a) {
 }
 
 function dead() {
-    for(var i = 0; i < screen.children.length; i++ ) {
-        var c = screen.children[i];
-        if(typeof(c.dx) != 'undefined')
-            c.dx = c.dy = 0;
-    }
-    if( currentLevel.lives < 0 )
-        nextLevel = new gameOver;
+    if( currentLevel.lives <= 1 )
+        setNextState("GameOver");
     else {
         pause();
         currentLevel.lives--;
+        showNotification(currentLevel.lives + " lives left");
         for(var i = 0; i < currentLevel.bullets.length; i++) {
-            currentLevel.bullets[i].visible = false;
-            delete currentLevel.bullets[i];
+            currentLevel.bullets[i].destroy();
         }
         currentLevel.bullets = [];
     }
@@ -281,22 +279,29 @@ Level.prototype.update = function() {
         }
     });
     boxesToRemove.forEach(function(b) {
-        b.visible = false;
         currentLevel.boxes.splice(currentLevel.boxes.indexOf(b), 1);
+        b.destroy();
     });
-}
 
-var gameOver = function() {}
-gameOver.prototype.update = function() {
+    if( currentLevel.boxes.length == 0 ) {
+        setNextState("LevelTransit");
+        nextLevel.levelNum = currentLevel.number+1;
+    }
 }
 
 function update() {
-    if( nextLevel && nextLevel != currentLevel ) {
-        delete currentLevel;
+    if( currentLevel && currentLevel.nextState )
+        setNextState(currentLevel.nextState);
+
+    if( nextLevel && nextLevel !== currentLevel ) {
+        if( currentLevel )
+            currentLevel.destroy();
         currentLevel = nextLevel;
+        nextLevel.visible = true;
     }
 
-    currentLevel.update();
+    if( currentLevel.update )
+        currentLevel.update();
 }
 
 function pause() {
@@ -306,4 +311,57 @@ function pause() {
 
 function unpause() {
     currentLevel.paused = false;
+}
+
+function showNotification(text) {
+    notification.text = text;
+    notification.state = "visible";
+    notification_timer.start();
+}
+
+function hideNotification(text) {
+    notification.state = "hidden";
+}
+
+var UiState = function() {}
+UiState.prototype.load = function(st) {
+    var component = Qt.createComponent(st);
+
+    console.log(component.status == Component.Ready);
+    if( component.status == Component.Ready ) {
+        var dynamic = component.createObject(screen);
+        if( dynamic == null ) {
+            console.log("error creating state "+st);
+            console.log(component.errorString());
+            return false;
+        }
+        dynamic.x = screen.x
+        dynamic.y = screen.y
+        dynamic.width = screen.width;
+        dynamic.height = screen.height;
+        return dynamic;
+    }
+    else {
+        console.log("error loading component state " + st);
+        console.log(component.errorString());
+        return false;
+    }
+}
+
+function setNextLevel(num) {
+    nextLevel = createLevel(num);
+    nextLevel.lives = 3;
+}
+
+function setNextState(st) {
+    if( st.indexOf("Level-") == 0 ) {
+        var n = parseInt(st.split('-')[1]);
+        setNextLevel(n);
+    }
+    else {
+        var x = new UiState();
+        nextLevel = x.load(st+".qml");
+        console.log(nextLevel.update);
+    }
+    console.log("Set next level to " + st, nextLevel == currentLevel);
 }
