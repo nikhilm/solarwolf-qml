@@ -1,7 +1,5 @@
 import QtQuick 1.0
 
-import "solarwolf.js" as Solarwolf
-
 Item {
 	id: ship
 
@@ -10,11 +8,6 @@ Item {
 	property int step: 4
 
     z: 5
-
-	Timer {
-		interval: 30; running: true; repeat: true;
-		onTriggered: Solarwolf.moveShip();
-    }
 
 	Image {
 		id: ship_img

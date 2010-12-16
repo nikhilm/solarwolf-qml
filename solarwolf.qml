@@ -13,6 +13,11 @@ Rectangle {
 
     Component.onCompleted: Solarwolf.init(Levels.levels)
 
+	Timer {
+		interval: 30; running: true; repeat: true;
+		onTriggered: Solarwolf.update();
+    }
+
     MouseArea {
         width: parent.width; height: parent.height
         anchors { top: parent.top; bottom: parent.bottom }
