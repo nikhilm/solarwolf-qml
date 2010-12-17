@@ -27,8 +27,6 @@ function index(row, column) {
 }
 
 function createLevel(num) {
-    console.log("Level " + num);
-    console.log("Levels " + levels.length);
     var ret = new Level();
     ret.title = levels[num].title;
     ret.subtitle = levels[num].subtitle;
@@ -343,7 +341,6 @@ var UiState = function() {}
 UiState.prototype.load = function(st) {
     var component = Qt.createComponent(st);
 
-    console.log(component.status == Component.Ready);
     if( component.status == Component.Ready ) {
         var dynamic = component.createObject(screen);
         if( dynamic == null ) {
@@ -377,9 +374,7 @@ function setNextState(st) {
     else {
         var x = new UiState();
         nextLevel = x.load(st+".qml");
-        console.log(nextLevel.update);
     }
-    console.log("Set next level to " + st, nextLevel == currentLevel);
 }
 
 function escape(e) {
