@@ -72,8 +72,8 @@ function createBox(type, x, y) {
             console.log(boxComponent.errorString());
             return false;
         }
-        dynamic.x = enemy_left.x + enemy_left.width*2 + x*(screen.baseDim + 15);
-        dynamic.y = enemy_top.y + enemy_top.height*2 + y*(screen.baseDim + 15);
+        dynamic.x = enemy_left.x + enemy_left.width*2 - 15 + x*(screen.baseDim + 15);
+        dynamic.y = enemy_top.y + enemy_top.height*2 - 15 + y*(screen.baseDim + 15);
         dynamic.width = dynamic.height = 26;
         if( type == '*' )
             dynamic.state = 'yellow';
