@@ -231,15 +231,19 @@ function intersectsShip(a) {
 }
 
 function dead() {
-    if( currentLevel.lives <= 1 )
+    for(var i = 0; i < currentLevel.bullets.length; i++) {
+        currentLevel.bullets[i].destroy();
+    }
+    if( currentLevel.lives <= 1 ) {
+        for(var i = 0; i < currentLevel.boxes.length; i++) {
+            currentLevel.boxes[i].destroy();
+        }
         setNextState("GameOver");
+    }
     else {
         pause();
         currentLevel.lives--;
         showNotification(currentLevel.lives + " lives left");
-        for(var i = 0; i < currentLevel.bullets.length; i++) {
-            currentLevel.bullets[i].destroy();
-        }
         currentLevel.bullets = [];
     }
 }
@@ -288,6 +292,9 @@ Level.prototype.update = function() {
     });
 
     if( currentLevel.boxes.length == 0 ) {
+        for(var i = 0; i < currentLevel.bullets.length; i++) {
+            currentLevel.bullets[i].destroy();
+        }
         if( currentLevel.number == levels.length - 1 ) {
             setNextState("Win");
             return;
