@@ -284,6 +284,10 @@ Level.prototype.update = function() {
     });
 
     if( currentLevel.boxes.length == 0 ) {
+        if( currentLevel.number == levels.length - 1 ) {
+            setNextState("Win");
+            return;
+        }
         setNextState("LevelTransit");
         nextLevel.levelNum = currentLevel.number+1;
     }
