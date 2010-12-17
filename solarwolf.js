@@ -369,3 +369,7 @@ function setNextState(st) {
     }
     console.log("Set next level to " + st, nextLevel == currentLevel);
 }
+
+function escape(e) {
+        setNextState("MainMenu");
+}

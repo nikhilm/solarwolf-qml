@@ -97,4 +97,6 @@ Rectangle {
             NumberAnimation { properties: "opacity"; duration: 500 }
         }
     }
+
+    Keys.onEscapePressed: Solarwolf.escape(event)
 }
