@@ -10,16 +10,16 @@ Rectangle {
     color: "black"
 
     Column {
-    	spacing: 30
-    	anchors.horizontalCenter: parent.horizontalCenter
-    	width: parent.width*0.75
-    	height: parent.height
+        spacing: 30
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: parent.width*0.75
+        height: parent.height
 
-    	Image {
-    		source: "./data/logo.png"
-    		fillMode: Image.PreserveAspectFit
-    		width: parent.width
-    		height: parent.height/2
+        Image {
+            source: "./data/logo.png"
+            fillMode: Image.PreserveAspectFit
+            width: parent.width
+            height: parent.height/2
         }
 
         Button {
