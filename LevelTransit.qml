@@ -5,6 +5,7 @@ Item {
 	z: 10
 	property string nextState: ""
 	property int levelNum: 0
+	property int lives: 0
 
 	MouseArea {
 		anchors.fill: parent

@@ -293,6 +293,7 @@ Level.prototype.update = function() {
         }
         setNextState("LevelTransit");
         nextLevel.levelNum = currentLevel.number+1;
+        nextLevel.lives = currentLevel.lives;
     }
 }
 
@@ -357,7 +358,7 @@ UiState.prototype.load = function(st) {
 
 function setNextLevel(num) {
     nextLevel = createLevel(num);
-    nextLevel.lives = 3;
+    nextLevel.lives = (currentLevel.lives ? currentLevel.lives : 3);
 }
 
 function setNextState(st) {
