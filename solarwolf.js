@@ -299,6 +299,7 @@ Level.prototype.update = function() {
         }
         setNextState("LevelTransit");
         nextLevel.levelNum = currentLevel.number+1;
+        nextLevel.children[0].children[1].children[1].text = levels[currentLevel.number+1].title;
         nextLevel.lives = currentLevel.lives;
     }
 }
