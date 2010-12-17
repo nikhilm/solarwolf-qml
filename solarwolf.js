@@ -269,11 +269,14 @@ Level.prototype.update = function() {
 
     var boxesToRemove = [];
     currentLevel.boxes.forEach(function(box) {
-        if( intersectsShip(box) ) {
+        if( box.touchable > 0 )
+            box.touchable--;
+        if( box.touchable == 0 && intersectsShip(box) ) {
             if( !box.state ) {
                 boxesToRemove.push(box);
             }
             else {
+                box.touchable = 15;
                 box.state = "";
             }
         }

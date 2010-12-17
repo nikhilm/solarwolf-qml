@@ -2,6 +2,7 @@ import QtQuick 1.0
 
 Item {
     id: box
+    property int touchable: 0
 
     Image {
         id: box_img
