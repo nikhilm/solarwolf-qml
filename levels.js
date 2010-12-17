@@ -62,7 +62,7 @@ grid: [
 "   ##  ##",
 "  # #  ##",
 ]}, {
-title: "Email Sprial",
+title: "Email Spiral",
 subtitle: "More Junk Mail",
 grid: [
 " ####",

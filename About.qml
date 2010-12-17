@@ -1,20 +1,21 @@
 import QtQuick 1.0
 
 Rectangle {
-	id: about
-	anchors.fill: parent
-	z: 10
-	color: "black"
-	property string nextState: ""
+    id: about
+    anchors.fill: parent
+    z: 10
+    color: "#000045"
+    property string nextState: ""
 
-	MouseArea {
-		anchors.fill: parent
-		onClicked: nextState = "MainMenu";
+    MouseArea {
+        anchors.fill: parent
+        onClicked: nextState = "MainMenu";
     }
 
     Column {
-    	spacing: 10
-    	anchors.fill: parent
+        spacing: 10
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
         Text {
             text: "Created by"
             color: "white"
@@ -31,7 +32,7 @@ Rectangle {
         }
 
         Text {
-        	text: "Based on Solarwolf by Pete Shinners"
+            text: "Based on Solarwolf by Pete Shinners"
             color: "white"
             font.pointSize: 12
             anchors.horizontalCenter: parent.horizontalCenter
@@ -41,9 +42,9 @@ Rectangle {
         }
 
         Text {
-        	text: "nsm.nikhil@gmail.com"
-        	color: "white"
-        	font.pointSize: 12
+            text: "nsm.nikhil@gmail.com"
+            color: "white"
+            font.pointSize: 12
             anchors.horizontalCenter: parent.horizontalCenter
         }
     }

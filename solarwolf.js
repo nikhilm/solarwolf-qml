@@ -378,5 +378,5 @@ function setNextState(st) {
 }
 
 function escape(e) {
-        setNextState("MainMenu");
+    setNextState("MainMenu");
 }
