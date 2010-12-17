@@ -36,6 +36,7 @@ function createLevel(num) {
     ret.bullets = [];
     ret.number = num;
     ret.destroy = function() {}
+    the_ship.dx = the_ship.dy = 0;
 
     var grid = levels[num].grid;
     for(var i = 0; i < 7; i++) {
