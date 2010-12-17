@@ -124,7 +124,7 @@ function createEnemy(which) {
             return false;
         }
 
-        var start = parseInt(Math.min(shipBoundaryLeft, Math.max(Math.random()*shipBoundaryRight, shipBoundaryRight)));
+        var start = parseInt(Math.min(shipBoundaryLeft, Math.random()*shipBoundaryRight-baseDim));
         if( which == 'top' ) {
             dynamic.x = start;
             dynamic.y = shipBoundaryTop-32;
