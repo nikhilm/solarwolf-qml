@@ -43,4 +43,7 @@ Rectangle {
             onClicked: Qt.quit()
         }
     }
+
+    focus: true
+    Keys.onEscapePressed: Qt.quit()
 }
